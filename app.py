@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request
 
-app = Flask(name)
+app = Flask(__name__)
 
 # FIX 1: استفاده از Environment Variable به جای هاردکد کردن پسورد
 # اگر پسورد ست نشده بود، یک مقدار پیش‌فرض امن‌تر یا خالی برمی‌دارد
@@ -21,7 +21,7 @@ def hackme():
     # اینجا فقط یک پیام ساده برمی‌گردانیم. خطر Command Injection رفع شد.
     return f"Scanning target: {target} (Simulated - No real execution)"
 
-if name == 'main':
+if __name__ == '__main__':
     # FIX 3: غیرفعال کردن حالت دیباگ
     # پورت را هم می‌توانیم از متغیر محیطی بگیریم
     port = int(os.environ.get("PORT", 5000))
