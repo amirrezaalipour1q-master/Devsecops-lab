@@ -27,4 +27,4 @@ if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     
     # FIX 4: بایند کردن روی 0.0.0.0 در داکر اوکی است، اما debug باید False باشد
-    app.run(host='0.0.0.0', port=port, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False) # nosec
