@@ -39,7 +39,7 @@ jobs:
     # 5. چک کردن امنیت کد (Bandit)
     - name: Security check with Bandit
       run: |
-        bandit -r . -c "bandit.yaml" || true
+        bandit -r . 
       # نکته: اگر فایل bandit.yaml رو نساختی، این خط رو به bandit -r . تغییر بده
 
     # --- بخش جدید: داکر ---
