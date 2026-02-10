@@ -1,4 +1,3 @@
-
 name: CI/CD Pipeline with DevSecOps
 
 on:
@@ -35,7 +34,7 @@ jobs:
       run: |
         bandit -r . -f custom --msg-template "{msg_id}: {msg}" || true
 
-    # --- DAST Scan ---
+    # --- DAST Scan Setup ---
     - name: Build Docker Image Locally
       run: docker build -t my-test-app .
 
@@ -47,6 +46,10 @@ jobs:
 
     - name: Check if App is Running
       run: curl -v http://localhost:5000
+
+    # --- FIX PERMISSION HERE ---
+    - name: Fix Permissions for ZAP
+      run: chmod -R 777 .
 
     - name: OWASP ZAP Baseline Scan (DAST)
       uses: zaproxy/action-baseline@v0.9.0
@@ -67,4 +70,3 @@ jobs:
         context: .
         push: true
         tags: amiretto/flask-app:latest
-
