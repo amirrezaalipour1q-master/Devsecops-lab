@@ -10,7 +10,7 @@ AWS_KEY = os.environ.get("AWS_KEY")
 
 @app.route('/')
 def hello():
-    return "<h1>Hello! This application is now SECURE :lock:</h1>"
+    return "Wow! My Devops Pipeline updated this automatically!"
 
 @app.route('/hackme')
 def hackme():
