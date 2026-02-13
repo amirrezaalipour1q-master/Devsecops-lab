@@ -4,13 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
-# --- FIX: GIVING PERMISSIONS TO GITHUB TOKEN ---
 permissions:
   contents: read
   issues: write
   checks: write
   pull-requests: write
-# -----------------------------------------------
 
 jobs:
   build-test-scan-deploy:
@@ -33,9 +31,7 @@ jobs:
 
     - name: Lint with Flake8
       run: |
-        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings.
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Security Audit with Bandit (SAST)
@@ -58,13 +54,16 @@ jobs:
     - name: Fix Permissions for ZAP
       run: chmod -R 777 .
 
+    # --- UPDATED ZAP ACTION ---
     - name: OWASP ZAP Baseline Scan (DAST)
-      uses: zaproxy/action-baseline@v0.9.0
+      uses: zaproxy/action-baseline@v0.14.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         target: 'http://localhost:5000'
         fail_action: false 
-        allow_issue_writing: false  # Added this to be safe, just show logs first!
+        allow_issue_writing: false
+        artifact_name: 'zap-scan-report' 
+    # --------------------------
         
     # --- Deploy ---
     - name: Login to Docker Hub
