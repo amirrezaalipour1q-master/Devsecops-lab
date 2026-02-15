@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  selector:
+    app: flask-app # وصل شو به پادهایی که برچسب flask-app دارن
+  type: NodePort  # نوع سرویس برای دسترسی لوکال
+  ports:
+    - protocol: TCP
+      port: 80        # پورتی که سرویس گوش میده
+      targetPort: 5000 # پورتی که برنامه تو کانتینر باز کرده
+      nodePort: 30007  # پورتی که ما از بیرون (مرورگر) صدا میزنیم

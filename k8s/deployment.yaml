@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+  labels:
+    app: flask-app
+spec:
+  replicas: 2  # :point_left: یعنی ۲ تا کانتینر همزمان بیار بالا (اگه یکی مرد، اون یکی هست)
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-container
+        image: amirrezaalipour1q/devsecops-lab:latest # :point_left: همون ایمیجی که دیشب پوش کردیم
+        imagePullPolicy: Always # همیشه آخرین نسخه رو دانلود کن
+        ports:
+        - containerPort: 5000
